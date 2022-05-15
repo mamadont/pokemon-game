@@ -1,4 +1,5 @@
 from models.pokemon import Pokemon
+from models.user import User
 
 moves = [
     {
@@ -22,15 +23,10 @@ moves = [
 
 ]
 
-pokemon = Pokemon("Pokemon 1", "Fire", 40, moves)
+pokemon1 = Pokemon("Pokemon 1", "Fire", 40, moves)
+pokemon2 = Pokemon("Pokemon 2", "Water", 40, moves)
+pokemon3 = Pokemon("Pokemon 3", "Grass", 40, moves)
 
-
-new_move = {
-        "name": "Move 4",
-        "type": "Fire",
-        "minimum_damage": 8,
-        "maximum_damage": 20
-    }
-
-print(pokemon.attack())
-
+team = [pokemon1, pokemon2, pokemon3]
+user = User("Mamadou", team)
+user.select_attack()

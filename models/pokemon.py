@@ -50,7 +50,7 @@ class Pokemon:
 
     def attack(self):
         self.list_moves()
-        move = int(input("Please select a move number:"))
+        move = int(input("Please select a move number: "))
         move = self._moves[move - 1] 
         return random.randint(move["minimum_damage"], move["maximum_damage"])
         

@@ -1,3 +1,6 @@
+# TODO:
+# Select an attack 
+
 class User:
     def __init__(self, name, team):
         self._name = name
@@ -21,6 +24,29 @@ class User:
     def team(self, team):
         self._team = team
 
+    def list_team(self):
+        count = 1
+        for member in self._team:
+            print(f"{count}) {member.name}")
+            count = count + 1
+    
+    def add_to_team(self, pokemon):
+        if len(self._team) >= 3:
+            print("Team is already at max capacity!") 
+        self._team.append(pokemon)
+    
+    def remove_from_team(self):
+        self.list_team()
+        index = int(input("Pick a member to remove: "))
+        del self._team[index - 1]
+    
+    def select_attack(self):
+        self.list_team()
+        index = int(input("Please select a pokemon to attack with: "))
+        pokemon = self._team[index]        
+        damage = pokemon.attack()
+        print(f"Damage: {damage}")
+    
     @property
     def wins(self):
         return self._wins

@@ -27,6 +27,9 @@ class Pokemon:
     def health_points(self, health_points):
         self._health_points = health_points
 
+    def is_alive(self):
+        return self._health_points > 0
+
     @property
     def moves(self):
         return self._moves

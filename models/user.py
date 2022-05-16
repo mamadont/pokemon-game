@@ -45,8 +45,8 @@ class User:
         index = int(input("Please select a pokemon to attack with: "))
         pokemon = self._team[index]        
         damage = pokemon.attack()
-        print(f"Damage: {damage}")
-    
+        return damage
+            
     @property
     def wins(self):
         return self._wins

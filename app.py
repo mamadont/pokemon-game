@@ -1,5 +1,6 @@
 from models.pokemon import Pokemon
 from models.user import User
+from game_logics.player_v_computer import play_game
 
 moves = [
     {
@@ -28,5 +29,7 @@ pokemon2 = Pokemon("Pokemon 2", "Water", 40, moves)
 pokemon3 = Pokemon("Pokemon 3", "Grass", 40, moves)
 
 team = [pokemon1, pokemon2, pokemon3]
-user = User("Mamadou", team)
-user.select_attack()
+user1 = User("Mamadou", team)
+user2 = User("CPU", team)
+
+play_game(user1, user2)

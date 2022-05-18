@@ -1,5 +1,5 @@
 import random
-
+# need to create delete pokemon methods
 class Pokemon:
     def __init__(self, name, type, health_points, moves):
         self._name = name 

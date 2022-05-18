@@ -29,7 +29,8 @@ pokemon2 = Pokemon("Pokemon 2", "Water", 40, moves)
 pokemon3 = Pokemon("Pokemon 3", "Grass", 40, moves)
 
 team = [pokemon1, pokemon2, pokemon3]
+team2 = [pokemon1, pokemon2, pokemon3]
 user1 = User("Mamadou", team)
-user2 = User("CPU", team)
+user2 = User("CPU", team2)
 
 play_game(user1, user2)

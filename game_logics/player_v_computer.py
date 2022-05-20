@@ -1,61 +1,50 @@
 from models.user import User
-import random
+from models.cpu_user import CPU_User
 
-
-def play_game(user: User, cpu: User):
+def play_game(user: User, cpu: CPU_User):
     while (len(user._team) > 0) and (len(cpu._team) > 0):
 
         # Ask player 1 to choose a pokemon to attack with
-        user.list_team()
-        attacker_index = int(input("Pick a pokemon to attack with: "))
-        user_attacker = user._team[attacker_index - 1]
+        user_attacker = user.select_pokemon()
 
         # Choose an attack
         move = user_attacker.attack()
 
-        # Choose a one of player 2's pokemon to attack
-        cpu.list_team()
-        victim_index = int(input("Choose pokemon to attack: "))
-        cpu_victim = cpu._team[victim_index - 1]
+        # Choose a one of player 2's pokemon to attack #fix this
+        cpu_victim = user.select_cpu_victim(cpu)
 
+        # Deduct health points
         cpu_victim._health_points = cpu_victim._health_points - move
 
         print(
-            f"CPU's {cpu_victim._name} lost {move} health points. Health Points: {cpu_victim._health_points}")
-
-        
+            f"CPU's {cpu_victim._name} lost {move} health points. Current HP: {cpu_victim._health_points} ")
 
         # If the hp is less than or equal to 0 delete that pokemon from the team
-        if cpu_victim._health_points <= 0:
-            cpu.remove_from_team(victim_index - 1)
+        if cpu_victim.is_dead():
+            cpu.remove_from_team(cpu_victim)
             print(f"CPU's {cpu_victim.name} has fainted")
 
         if len(cpu._team) == 0:
             print(f"{user._name} has won!")
             return
 
-
         # Select random pokemon
-        attacker_index = random.randint(0, len(cpu._team))
-        cpu_attacker = cpu._team[attacker_index - 1]
+        cpu_attacker = cpu.select_pokemon()
 
         # Choose an attack
-        move_index = random.randint(0, 2)
-        cpu_damage = random.randint(
-            cpu_attacker._moves[move_index]["minimum_damage"], cpu_attacker._moves[move_index]["maximum_damage"])
+        cpu_damage = cpu_attacker.select_attack()
 
         # Choose a one of player 1's pokemon to attack
-        victim_index = random.randint(0, len(user._team)-1)
-        user_victim = user._team[victim_index]
+        user_victim = cpu_attacker.select_victim(user)
 
         user_victim._health_points = user_victim._health_points - cpu_damage
 
         print(
-            f"User's {user_victim._name} lost {cpu_damage} health points. Health Points: {user_victim._health_points}")
+            f"User's {user_victim._name} lost {cpu_damage} health points. Current HP: {user_victim._health_points}")
 
         # If the hp is less than or equal to 0 delete that pokemon from the team
-        if user_victim._health_points <= 0:
-            user.remove_from_team(victim_index)
+        if user_victim.is_dead():
+            user.remove_from_team(user_victim)
             print(f"User's {user_victim.name} has fainted")
 
         # Check to see if there is a winner

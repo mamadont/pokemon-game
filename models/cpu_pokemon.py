@@ -2,8 +2,8 @@ import random
 from models.pokemon import Pokemon
 
 class CPU_Pokemon(Pokemon):
-    def __init__(self, id, name, type, health_points, moves):
-        super().__init__(id, name, type, health_points, moves)
+    def __init__(self, name, type, health_points, moves):
+        super().__init__(name, type, health_points, moves)
 
     def select_attack(self):
         index = random.randint(0, 2)
